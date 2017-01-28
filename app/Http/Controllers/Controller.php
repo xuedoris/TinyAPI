@@ -10,6 +10,5 @@ class Controller extends BaseController
     public function index()
     {
     	$geo = new IpApi();
-    	$geo->index();
     }
 }

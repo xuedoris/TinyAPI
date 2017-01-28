@@ -7,6 +7,5 @@ namespace App\Libraries\GeoLocation;
  */
 class FreeGeoIp
 {
-    const $apiUrl = 'http://freegeoip.net/';
-    const $supportedFormats = ['json', 'xml', 'csv', 'jsonp'];
+    const APIURL = 'http://freegeoip.net/';
 }

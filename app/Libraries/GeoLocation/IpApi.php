@@ -7,8 +7,7 @@ namespace App\Libraries\GeoLocation;
  */
 class IpApi implements GeoLocation
 {
-   	private const $apiUrl = 'http://ip-api.com/';
-   	private const $supportedFormats = ['json', 'xml', 'csv', 'line'];
+   	const APIURL = 'http://ip-api.com/';
 
     public function getGeoData($format)
     {

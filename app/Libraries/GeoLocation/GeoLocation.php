@@ -2,25 +2,26 @@
 
 namespace App\Libraries\GeoLocation;
 
+use GuzzleHttp\Client;
+
 /*
  * Geo Location interface
  */
 abstract class GeoLocation
 {
-    abstract public function getGeoData($ip);
+    protected $apiUrl;
+    protected $supportedFormats;
 
-    protected function formatResult($result) 
+    abstract public function formatResult($result);
+
+    public function getGeoData($ip)
     {
-     	$data = json_decode($result, true);
-
-		return [
-			'ip' => $data['query'],
-		    'geo' => [
-		        'service' => 'ip-api',
-		        'city' => $data['city'],
-		        'region' => $data['region'],
-		        'country' => $data['country'],
-		    ]
-		];
+    	$client = new Client();
+		$res = $client->request('GET', $this->apiUrl . $ip);
+		if($res->getStatusCode() === 200) {
+			return $this->formatResult($res->getBody());
+		}
+		
+		return [];
     }
 }

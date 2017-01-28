@@ -7,25 +7,33 @@ namespace App\Libraries\GeoLocation;
  */
 class FreeGeoIp extends GeoLocation
 {
-    const APIURL = 'http://freegeoip.net/';
+    protected $apiUrl = 'http://freegeoip.net/json/';
 
-    public function getGeoData()
-    {
-    	echo 123;
-    }
+    /**
+     * All the supported formats
+     *
+     * @var array
+     */
+   	protected $supportedFormats = [
+   		'json', 'xml', 'csv',
+   	];
 
-    private function formatResult($result) 
+    public function formatResult($result) 
     {
-     	$data = json_decode($result, true);
-	
-		return [
-			'ip' => $data['query'],
-		    'geo' => [
-		        'service' => 'ip-api',
-		        'city' => $data['city'],
-		        'region' => $data['region'],
-		        'country' => $data['country'],
-		    ]
-		];
+      $data = json_decode($result, true);
+
+      if($data['latitude'] !== 0) {
+        return [
+          'ip' => $data['ip'],
+            'geo' => [
+                'service' => 'freegeoip',
+                'city' => $data['city'],
+                'region' => $data['region_name'],
+                'country' => $data['country_name'],
+            ]
+        ];
+      } else {
+        return ['error' => 'No data returned'];
+      }
     }
 }

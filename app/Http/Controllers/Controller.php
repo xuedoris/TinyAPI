@@ -26,10 +26,7 @@ class Controller extends BaseController
 			case 'application/json':
 				echo json_encode($data, JSON_PRETTY_PRINT);
 				break;
-			case 'application/xml':
-				$xml = new \SimpleXMLElement('<root/>');
-				array_walk_recursive($data, array($xml, 'addChild'));
-				echo $xml->asXML();
+			case 'application/csv':
 				break;
 			default:
 				

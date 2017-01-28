@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
  */
 class IpApi extends GeoLocation
 {
-   	const APIURL = 'http://ip-api.com/';
+   protected $apiUrl = 'http://ip-api.com/json/';
    	
    	/**
      * All the supported formats
@@ -21,15 +21,23 @@ class IpApi extends GeoLocation
    	];
 
 
-    public function getGeoData($format)
-    {
-    	$client = new Client();
-		$res = $client->request('GET', self::APIURL.$format);
-		echo $res->getStatusCode();
-		// 200
-		echo $res->getHeaderLine('content-type');
-		// 'application/json; charset=utf8'
-		echo $res->getBody();
+    
 
+    public function formatResult($result) 
+    {
+     	$data = json_decode($result, true);
+     	if($data['status'] === 'success') {
+     		return [
+				'ip' => $data['query'],
+			    'geo' => [
+			        'service' => 'ip-api',
+			        'city' => $data['city'],
+			        'region' => $data['region'],
+			        'country' => $data['country'],
+			    ]
+			];
+     	} else {
+     		return ['error' => 'Retrieve data failed'];
+     	}
     }
 }

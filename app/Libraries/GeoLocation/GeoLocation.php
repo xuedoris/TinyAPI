@@ -5,7 +5,7 @@ namespace App\Libraries\GeoLocation;
 /*
  * Geo Location interface
  */
-interface GeoLocation
+abstract class GeoLocation
 {
-    public function getGeoData($format);
+    abstract public function getGeoData($format);
 }

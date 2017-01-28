@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Libraries\GeoLocation\IpApi;
 use App\Libraries\GeoLocation\GeoLocation;
 
-class GeoController extends BaseController
+class GeoController extends Controller
 {
     private $geoLocation; 
     
@@ -16,8 +14,11 @@ class GeoController extends BaseController
 	    $this->geoLocation = $geoLocation;
 	}
 
-    public function geolocation()
+    public function geolocation(Request $request, $ip = null)
     {
-    	 $this->geoLocation->getGeoData('json');    	
+    	$ip = $ip === null ? $request->ip() : $ip;
+    	$data = $this->geoLocation->getGeoData($ip);
+    	$this->setContentType($request->headers->get('Content-Type'));
+    	$this->sendReponse($data, 200);
     }
 }

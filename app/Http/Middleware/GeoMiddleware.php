@@ -30,7 +30,8 @@ class GeoMiddleware
                 return new IpApi();
             });
         } else {
-            throw new Exception("Error Processing Request", 1);     
+            echo 'incorrect service method';
+            exit;    
         }
 
         return $next($request);

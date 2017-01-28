@@ -9,8 +9,23 @@ class FreeGeoIp extends GeoLocation
 {
     const APIURL = 'http://freegeoip.net/';
 
-    public function getGeoData($format)
+    public function getGeoData()
     {
     	echo 123;
+    }
+
+    private function formatResult($result) 
+    {
+     	$data = json_decode($result, true);
+	
+		return [
+			'ip' => $data['query'],
+		    'geo' => [
+		        'service' => 'ip-api',
+		        'city' => $data['city'],
+		        'region' => $data['region'],
+		        'country' => $data['country'],
+		    ]
+		];
     }
 }

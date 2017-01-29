@@ -25,7 +25,7 @@ trait GeoExceptionHandlerTrait
 
     /**
      * Returns json response.
-     *
+     * @todo need to support other format in response such as CSV and etc.
      * @param array|null $payload
      * @param int $statusCode
      * @return \Illuminate\Http\JsonResponse

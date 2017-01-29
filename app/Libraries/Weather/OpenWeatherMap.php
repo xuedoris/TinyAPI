@@ -15,7 +15,7 @@ class OpenWeatherMap
     
     /**
      * All the supported formats
-     *
+     * @todo need to support other format
      * @var array
      */
     protected $supportedFormats = [
@@ -55,7 +55,7 @@ class OpenWeatherMap
                 ]
             ];
         } else {
-            return ['error' => 'Retrieve data failed'];
+            abort($data['cod'], 'Error message from:openweathermap, '.$data['message'].'. Requested IP:'.$ip);
         }
     }
 }

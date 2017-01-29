@@ -10,7 +10,7 @@ use Exception;
 class GeoMiddleware
 {
     /**
-     * Handle an incoming request.
+     * Handle an incoming request for Geo Location to determine which API service to use.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -31,7 +31,7 @@ class GeoMiddleware
                 return new IpApi();
             });
         } else {
-            abort(404, 'unfound');    
+            abort(400, 'Requested IP service method is not found');    
         }
 
         return $next($request);

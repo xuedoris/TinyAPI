@@ -13,7 +13,7 @@ class IpApi extends GeoLocation
    	
    	/**
      * All the supported formats
-     *
+     * @todo need to support other format
      * @var array
      */
    	protected $supportedFormats = [

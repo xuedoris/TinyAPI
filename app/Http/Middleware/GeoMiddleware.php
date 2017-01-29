@@ -21,6 +21,7 @@ class GeoMiddleware
         
         $service = $request->query->get('service');
 
+        // use freegeoip as default service
         if ($service === null || $service === 'freegeoip') {
             app()->bind('App\Libraries\GeoLocation\GeoLocation', function() {
                 return new FreeGeoIp();
@@ -30,8 +31,7 @@ class GeoMiddleware
                 return new IpApi();
             });
         } else {
-            echo 'incorrect service method';
-            exit;    
+            abort(403, 'Unauthorized action.');    
         }
 
         return $next($request);

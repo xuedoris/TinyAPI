@@ -18,10 +18,7 @@ abstract class GeoLocation
     {
     	$client = new Client();
 		$res = $client->request('GET', $this->apiUrl . $ip);
-		if($res->getStatusCode() === 200) {
-			return $this->formatResult($res->getBody());
-		}
-		
-		return [];
+
+		return $this->formatResult($res->getBody());
     }
 }

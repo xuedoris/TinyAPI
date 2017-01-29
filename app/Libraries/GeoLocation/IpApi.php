@@ -19,10 +19,7 @@ class IpApi extends GeoLocation
    	protected $supportedFormats = [
    		'json', 'xml', 'csv', 'line'
    	];
-
-
     
-
     public function formatResult($result) 
     {
      	$data = json_decode($result, true);

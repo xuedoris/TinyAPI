@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
     {
         if ($e instanceof HttpException){
             return $this->badRequest($e->getMessage(), $e->getStatusCode());
-        }
+        } else return $this->badRequest($e->getMessage(), 500);
             
         return parent::render($request, $e);
     }

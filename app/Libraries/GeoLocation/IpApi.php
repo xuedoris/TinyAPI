@@ -20,10 +20,18 @@ class IpApi extends GeoLocation
    		'json', 'xml', 'csv', 'line'
    	];
     
+    public function validateResult($data)
+    {
+      if($data['status'] === 'success') {
+        return $data;
+      } else {
+        abort(400, 'Error message from:ip-api, '.$data['message'].'. Requested IP:'.$data['query']);
+      }
+    }
+
     public function formatResult($data) 
     {
-     	if($data['status'] === 'success') {
-     		return [
+     	return [
 				'ip' => $data['query'],
 			    'geo' => [
 			        'service' => 'ip-api',
@@ -32,8 +40,5 @@ class IpApi extends GeoLocation
 			        'country' => $data['country'],
 			    ]
 			];
-     	} else {
-     		return ['error' => 'Retrieve data failed'];
-     	}
     }
 }

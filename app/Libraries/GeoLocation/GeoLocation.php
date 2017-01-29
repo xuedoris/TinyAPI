@@ -13,6 +13,7 @@ abstract class GeoLocation
     protected $supportedFormats;
 
     abstract public function formatResult($result);
+    abstract public function validateResult($result);
 
     public function getGeoData($ip)
     {
@@ -24,6 +25,8 @@ abstract class GeoLocation
     {
     	$client = new Client();
 		$res = $client->request('GET', $this->apiUrl . $ip);
-		return json_decode($res->getBody(), true);
+		// Analyse if returned data is valid.
+		$validResult = $this->validateResult(json_decode($res->getBody(), true));
+		return $validResult;
     }
 }

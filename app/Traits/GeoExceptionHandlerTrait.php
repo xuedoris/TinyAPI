@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use Exception;
-use Illuminate\Http\Request;
 
 trait GeoExceptionHandlerTrait
 {
@@ -30,7 +29,7 @@ trait GeoExceptionHandlerTrait
      * @param int $statusCode
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function jsonResponse(array $payload=null, $statusCode=404)
+    protected function jsonResponse(array $payload=null, $statusCode=400)
     {
         $payload = $payload ?: [];
         return response()->json($payload, $statusCode);

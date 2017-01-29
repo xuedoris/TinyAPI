@@ -2,10 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use App\Libraries\GeoLocation\IpApi;
 use App\Libraries\GeoLocation\FreeGeoIp;
+use Closure;
 use Exception;
+use GuzzleHttp\Client;
 
 class GeoMiddleware
 {
@@ -24,11 +25,11 @@ class GeoMiddleware
         // use freegeoip as default service
         if ($service === null || $service === 'freegeoip') {
             app()->bind('App\Libraries\GeoLocation\GeoLocation', function() {
-                return new FreeGeoIp();
+                return new FreeGeoIp(new Client());
             });
         } elseif ($service === 'ip-api') {
             app()->bind('App\Libraries\GeoLocation\GeoLocation', function() {
-                return new IpApi();
+                return new IpApi(new Client());
             });
         } else {
             abort(400, 'Requested IP service method is not found');    

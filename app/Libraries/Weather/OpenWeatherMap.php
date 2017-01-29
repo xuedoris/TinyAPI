@@ -12,7 +12,9 @@ use GuzzleHttp\Client;
 class OpenWeatherMap
 {
     protected $apiUrl = 'http://api.openweathermap.org/data/2.5/weather?';
-    
+    protected $geoLocation;
+    protected $client;
+
     /**
      * All the supported formats
      * @todo need to support other format
@@ -22,17 +24,21 @@ class OpenWeatherMap
         'json', 'xml', 'csv'
     ];
 
+    public function __construct(Client $client, $geoLocation)
+    {
+        $this->geoLocation = $geoLocation;
+        $this->client = $client;
+    }
+
     public function getWeather($ip)
     {
-        $geoData = (new IpApi())->getRawData($ip);
-
+        $geoData = $this->geoLocation->getRawData($ip);
         $query = http_build_query([
             'q' => $geoData['city'].','.$geoData['countryCode'],
             'units' => 'metric',
             'appid' => getenv('OPENWEATHER_KEY'),
         ]);
-        $client = new Client();
-        $res = $client->request('GET', $this->apiUrl . $query);
+        $res = $this->client->request('GET', $this->apiUrl . $query);
         
         return $this->formatResult($res->getBody(), $ip);
     }

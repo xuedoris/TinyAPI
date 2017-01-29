@@ -32,11 +32,11 @@ class IpApi extends GeoLocation
     public function formatResult($data) 
     {
      	return [
-				'ip' => $data['query'],
+				  'ip' => $data['query'],
 			    'geo' => [
 			        'service' => 'ip-api',
 			        'city' => $data['city'],
-			        'region' => $data['region'],
+			        'region' => $data['regionName'],
 			        'country' => $data['country'],
 			    ]
 			];

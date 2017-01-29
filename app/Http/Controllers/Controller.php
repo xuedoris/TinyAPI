@@ -24,7 +24,7 @@ class Controller extends BaseController
 		// @todo need to implemnt other content type
 		switch ($this->getContentType()) {
 			case 'application/json':
-				echo response()->json($data, $code);
+				return response()->json($data, $code);
 				break;
 			case 'application/csv':
 				break;

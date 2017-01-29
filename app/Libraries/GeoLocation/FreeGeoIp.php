@@ -30,7 +30,7 @@ class FreeGeoIp extends GeoLocation
     public function formatResult($data) 
     { 
       return [
-        'ip' => $data['ip'],
+          'ip' => $data['ip'],
           'geo' => [
               'service' => 'freegeoip',
               'city' => $data['city'],

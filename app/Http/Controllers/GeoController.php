@@ -19,6 +19,7 @@ class GeoController extends Controller
     	$ip = $ip === null ? $request->ip() : $ip;
     	$data = $this->geoLocation->getGeoData($ip);
     	$this->setContentType($request->headers->get('Content-Type'));
-    	$this->sendReponse($data, 200);
+
+    	return $this->sendReponse($data, 200);
     }
 }

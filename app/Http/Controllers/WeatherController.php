@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
+use App\Libraries\Weather\OpenWeatherMap;
 
-class WeatherController extends BaseController
+class WeatherController extends Controller
 {
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __invoke()
+    public function index(Request $request, $ip = null)
     {
-        echo 12222222;
-    }
+        $ip = $ip === null ? $request->ip() : $ip;
+        $data = (new OpenWeatherMap())->getWeather($ip);
+        $this->setContentType($request->headers->get('Content-Type'));
 
-    //
+        $this->sendReponse($data, 200);
+    }
 }

@@ -16,4 +16,5 @@ $app->group(['middleware' => App\Http\Middleware\GeoMiddleware::class], function
 	$app->get('/geolocation/{ip}', 'GeoController@geolocation');
 });
 
-$app->get('/weather', WeatherController::class);
+$app->get('/weather', 'WeatherController@index');
+$app->get('/weather/{ip}', 'WeatherController@index');

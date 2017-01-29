@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Libraries\GeoLocation\GeoLocation;
+use Illuminate\Http\Request;
 
 class GeoController extends Controller
 {
-    private $geoLocation; 
-    
+    private $geoLocation;
+
     public function __construct(GeoLocation $geoLocation)
     {
-	    $this->geoLocation = $geoLocation;
-	}
+        $this->geoLocation = $geoLocation;
+    }
 
     public function geolocation(Request $request, $ip = null)
     {
-    	$ip = $ip === null ? $request->ip() : $ip;
-    	$data = $this->geoLocation->getGeoData($ip);
-    	$this->setContentType($request->headers->get('Content-Type'));
+        $ip = $ip === null ? $request->ip() : $ip;
+        $data = $this->geoLocation->getGeoData($ip);
+        $this->setContentType($request->headers->get('Content-Type'));
 
-    	return $this->sendReponse($data, 200);
+        return $this->sendReponse($data, 200);
     }
 }

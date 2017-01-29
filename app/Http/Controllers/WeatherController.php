@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Libraries\Weather\OpenWeatherMap;
 use App\Libraries\GeoLocation\IpApi;
+use App\Libraries\Weather\OpenWeatherMap;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 

@@ -2,13 +2,12 @@
 
 namespace App\Libraries\Weather;
 
-use App\Libraries\GeoLocation\IpApi;
-
 use GuzzleHttp\Client;
 
 /*
  * To retrieve Geo Location data from the free service site ip-api.com
  */
+
 class OpenWeatherMap
 {
     protected $apiUrl = 'http://api.openweathermap.org/data/2.5/weather?';
@@ -34,19 +33,19 @@ class OpenWeatherMap
     {
         $geoData = $this->geoLocation->getRawData($ip);
         $query = http_build_query([
-            'q' => $geoData['city'].','.$geoData['countryCode'],
+            'q' => $geoData['city'] . ',' . $geoData['countryCode'],
             'units' => 'metric',
             'appid' => getenv('OPENWEATHER_KEY'),
         ]);
         $res = $this->client->request('GET', $this->apiUrl . $query);
-        
+
         return $this->formatResult($res->getBody(), $ip);
     }
 
-    private function formatResult($result, $ip) 
+    private function formatResult($result, $ip)
     {
         $data = json_decode($result, true);
-        if(isset($data['cod']) && (int) $data['cod'] === 200) {
+        if (isset($data['cod']) && (int)$data['cod'] === 200) {
             return [
                 'ip' => $ip,
                 'city' => $data['name'],
@@ -61,7 +60,7 @@ class OpenWeatherMap
                 ]
             ];
         } else {
-            abort($data['cod'], 'Error message from:openweathermap, '.$data['message'].'. Requested IP:'.$ip);
+            abort($data['cod'], 'Error message from:openweathermap, ' . $data['message'] . '. Requested IP:' . $ip);
         }
     }
 }

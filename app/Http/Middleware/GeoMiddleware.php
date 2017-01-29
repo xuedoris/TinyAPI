@@ -31,7 +31,7 @@ class GeoMiddleware
                 return new IpApi();
             });
         } else {
-            abort(403, 'Unauthorized action.');    
+            abort(404, 'unfound');    
         }
 
         return $next($request);

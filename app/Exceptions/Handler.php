@@ -9,8 +9,12 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+use App\Traits\GeoExceptionHandlerTrait;
+
 class Handler extends ExceptionHandler
 {
+    use GeoExceptionHandlerTrait;
+
     /**
      * A list of the exception types that should not be reported.
      *
@@ -45,6 +49,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof HttpException){
+            return $this->badRequest($e->getMessage(), $e->getStatusCode());
+        }
+            
         return parent::render($request, $e);
     }
 }

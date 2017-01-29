@@ -20,9 +20,8 @@ class IpApi extends GeoLocation
    		'json', 'xml', 'csv', 'line'
    	];
     
-    public function formatResult($result) 
+    public function formatResult($data) 
     {
-     	$data = json_decode($result, true);
      	if($data['status'] === 'success') {
      		return [
 				'ip' => $data['query'],

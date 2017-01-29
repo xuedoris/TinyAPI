@@ -16,9 +16,14 @@ abstract class GeoLocation
 
     public function getGeoData($ip)
     {
+		$rawResult = $this->getRawData($ip);
+		return $this->formatResult($rawResult);
+    }
+
+    public function getRawData($ip)
+    {
     	$client = new Client();
 		$res = $client->request('GET', $this->apiUrl . $ip);
-
-		return $this->formatResult($res->getBody());
+		return json_decode($res->getBody(), true);
     }
 }

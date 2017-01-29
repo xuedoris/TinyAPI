@@ -24,13 +24,15 @@ class OpenWeatherMap
 
     public function getWeather($ip)
     {
-        $geoData = (new IpApi())->getGeoData($ip);
+        $geoData = (new IpApi())->getRawData($ip);
+
         $query = http_build_query([
-            'q' => $geoData['geo']['city'],
+            'q' => $geoData['city'].','.$geoData['countryCode'],
+            'units' => 'metric',
             'appid' => getenv('OPENWEATHER_KEY'),
         ]);
         $client = new Client();
-        $res = $client->request('GET', $this->apiUrl . $query;
+        $res = $client->request('GET', $this->apiUrl . $query);
         
         return $this->formatResult($res->getBody(), $ip);
     }

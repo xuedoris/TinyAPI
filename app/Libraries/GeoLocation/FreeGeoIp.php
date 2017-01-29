@@ -18,10 +18,8 @@ class FreeGeoIp extends GeoLocation
    		'json', 'xml', 'csv',
    	];
 
-    public function formatResult($result) 
+    public function formatResult($data) 
     {
-      $data = json_decode($result, true);
-
       if($data['latitude'] !== 0) {
         return [
           'ip' => $data['ip'],

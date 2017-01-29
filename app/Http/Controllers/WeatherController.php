@@ -17,7 +17,6 @@ class WeatherController extends Controller
         $ip = $ip === null ? $request->ip() : $ip;
         $data = (new OpenWeatherMap())->getWeather($ip);
         $this->setContentType($request->headers->get('Content-Type'));
-
         $this->sendReponse($data, 200);
     }
 }

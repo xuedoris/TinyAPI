@@ -2,6 +2,7 @@
 
 namespace App\Libraries\Weather;
 
+use App\Libraries\GeoLocation\GeoLocation;
 use GuzzleHttp\Client;
 
 /*
@@ -23,7 +24,7 @@ class OpenWeatherMap
         'json', 'xml', 'csv'
     ];
 
-    public function __construct(Client $client, $geoLocation)
+    public function __construct(Client $client, GeoLocation $geoLocation)
     {
         $this->geoLocation = $geoLocation;
         $this->client = $client;

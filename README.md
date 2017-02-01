@@ -1,10 +1,8 @@
-# PHP Code Challenge
+# Mini RestfulAPI by Xueyuan
 
-### Requirements
+### Overview
 
-Build a basic HTTP API web application using the PHP technologies of your choice. You will be evaluated on your ability to *architect* a miniature application.
-
-The web application will be responsible for returning the following information serialized as JSON:
+This is a basic HTTP API web application for returning the following information serialized as JSON:
 
 1. Geolocation information:
     * Target IP address (use client IP if none specified)
@@ -13,16 +11,12 @@ The web application will be responsible for returning the following information 
     * Current temperature (in **celcius**)
     * Wind speeds
 
-For IP Geolocation, your application should use the following two free services:
+For IP Geolocation, the application uses the following two free services:
 
 1. [ip-api.com](http://ip-api.com/)
 2. [freegeoip.net](http://freegeoip.net/)
 
-The client should be able to use different geolocation services based on a query parameter (?service=ip-api, or ?service=freegeoip) if provided, but default to one of them if nothing is specified. The response should also contain a value indicating to the client which service was used to return the Geolocation response.
-
-For weather information, you should use the [OpenWeatherMap API](http://openweathermap.org/current) to get the current weather information for a city by name. You may use our API key: `6103b0f582e78c7382bc6b0cdc06deb8`.
-
-> **NOTE:** Our OpenWeatherMap API key has a rate limit of 60 requests/minute. If you are throttled, you need to wait a full minute before it will work again.
+For weather, it uses [OpenWeatherMap API](http://openweathermap.org/current)
 
 ### Endpoints
 
@@ -72,21 +66,41 @@ GET /weather/8.8.8.8
 }
 ```
 
-### Instructions
+## Install
 
-1. Begin by forking this repository to your own GitHub account
-2. Create your PHP implementation of the requirements above, committing your code as you progress
-3. When finished, open a Pull Request to [lxrco/php-code-challenge-a](https://github.com/lxrco/php-code-challenge-a)
+### 1. Clone the source code.
 
-### Remarks
+```shell
+git clone https://github.com/xuedoris/php-code-challenge-a.git
+```
 
-Feel free to use any technology you want or add features you think would make it better.
+### 2. Set the basic config
 
-We're looking for developers who:
-* are comfortable relying on high-quality existing packages and knowing when is the appropriate time to use them
-* take pride in their creation instead of rushing to get it through the door
-* commit often and showcase work through a descriptive commit history
+Edit the `.env` file and set the `APP_KEY` and other config for the system. You can leave the `database` setting blank since it's optional in this app.
+> **NOTE:** DO NOT modify `OPENWEATHER_KEY` config field since the it's needed by the third party Weather API:
+`OPENWEATHER_KEY=6103b0f582e78c7382bc6b0cdc06deb8`
 
-Bonus points if you cover unit and/or functional testing.
+### 3. Install the extended package dependency.
 
-Happy coding!
+Go into php-code-challenge-a directory and install the extended dependencies: 
+
+```shell
+composer install
+```
+
+### 4. Point your web root to the app index file.
+For instance, in linux Nginx server go to nginx config directory and modify the server config file: 
+``` 
+root /exampleDirectory/php-code-challenge-a/public/;
+```
+Restart the server. 
+``` 
+sudo service nginx restart
+```
+Then you should be able to hit http://youweburl.com/geolocation for testing the API.
+
+## License
+
+The project is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+

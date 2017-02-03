@@ -18,6 +18,7 @@ class GeoApiFactory
             case 'ip-api':
                 return new IpApi($client);
                 break;
+            // use freegeoip as default service when no input
             case 'freegeoip':
             case null:
                 return new FreeGeoIp($client);
